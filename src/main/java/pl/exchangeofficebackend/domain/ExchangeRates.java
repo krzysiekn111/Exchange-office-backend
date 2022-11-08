@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class ExchangeRates {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EXCHANGE_RATES_ID")
     private Long id;
 

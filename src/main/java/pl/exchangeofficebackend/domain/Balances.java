@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Balances {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BALANCES_ID")
     private Long id;
 
@@ -20,7 +20,7 @@ public class Balances {
     @Column(name = "BALANCES_CURRENCY") /* Obiekt */
     private String balancesCurrency;
 
-    @Column(name = "BALANCES_CURRENCY")
+    @Column(name = "BALANCES_QUANTITY")
     private String quantity;
 
 }
