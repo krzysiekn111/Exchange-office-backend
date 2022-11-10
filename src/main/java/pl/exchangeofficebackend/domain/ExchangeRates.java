@@ -9,6 +9,9 @@ import javax.persistence.*;
 @Data
 public class ExchangeRates {
 
+    /*  uzupełniane za pomocą Schedulera  */
+    /*  Wykorzystywane do wyświetlania danych o kursach walut w tabeli generowanej za pomocą fronendu w Vaadin*/
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EXCHANGE_RATES_ID")

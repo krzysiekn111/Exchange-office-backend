@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 @Data
 public class History {
 
+    /*    uzupełniane za pomocą procedury   */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "HISTORY_ID")

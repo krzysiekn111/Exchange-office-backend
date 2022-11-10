@@ -21,6 +21,6 @@ public class Balances {
     private String balancesCurrency;
 
     @Column(name = "BALANCES_QUANTITY")
-    private String quantity;
+    private int quantity;
 
 }
