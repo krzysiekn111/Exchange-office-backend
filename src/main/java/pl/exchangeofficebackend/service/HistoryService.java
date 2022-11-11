@@ -19,7 +19,11 @@ public class HistoryService {
         this.historyRepository = historyRepository;
     }
 
-    public List<History> findall() {
-        return (List<History>) historyRepository.findAll();
+    public List<History> findHistories() {
+        return historyRepository.findAll();
+    }
+
+    public History findHistoryById(Long id) throws Exception {
+        return historyRepository.findById(id).orElseThrow(Exception::new);
     }
 }

@@ -21,7 +21,7 @@ public class HistoryController {
 
     @GetMapping
     private List<History> findAll() {
-        return historyService.findall();
+        return historyService.findHistories();
     }
 
 }
