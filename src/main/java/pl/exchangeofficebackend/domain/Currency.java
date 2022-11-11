@@ -3,6 +3,7 @@ package pl.exchangeofficebackend.domain;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "CURRENCY")
 @AllArgsConstructor
@@ -12,12 +13,47 @@ public class Currency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CURRENCY_ID")
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "CURRENCY_SYMBOL")
+    @Column(name = "SYMBOL")
     private String symbol;
 
-    @Column(name = "CURRENCY_NAME")
+    @Column(name = "NAME")
     private String name;
+
+    @OneToMany(
+            targetEntity = Balances.class,
+            mappedBy = "currency",
+            fetch = FetchType.LAZY
+    )
+    private List<Balances> balances;
+
+    @OneToMany(
+            targetEntity = History.class,
+            mappedBy = "currencyBought",
+            fetch = FetchType.LAZY
+    )
+    private List<History> currencyBought;
+
+    @OneToMany(
+            targetEntity = History.class,
+            mappedBy = "currencySold",
+            fetch = FetchType.LAZY
+    )
+    private List<History> currencySold;
+
+    @OneToMany(
+            targetEntity = ExchangeRates.class,
+            mappedBy = "leftCurrency",
+            fetch = FetchType.LAZY
+    )
+    private List<ExchangeRates> leftCurrency;
+
+    @OneToMany(
+            targetEntity = ExchangeRates.class,
+            mappedBy = "rightCurrency",
+            fetch = FetchType.LAZY
+    )
+    private List<ExchangeRates> rightCurrency;
 }

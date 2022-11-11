@@ -14,24 +14,26 @@ public class History {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "HISTORY_ID")
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "HISTORY_CURRENCY_BOUGHT")  /* Obiekt */
-    private String currencyBought;
+    @ManyToOne
+    @JoinColumn(name = "BOUGHT_CURRENCY_ID")
+    private Currency currencyBought;
 
-    @Column(name = "HISTORY_CURRENCY_SOLD")  /* Obiekt */
-    private String currencySold;
+    @ManyToOne
+    @JoinColumn(name = "SOLD_CURRENCY_ID")
+    private Currency currencySold;
 
-    @Column(name = "HISTORY_QUANTITY_BOUGHT")
+    @Column(name = "QUANTITY_BOUGHT")
     private int boughtQuantity;
 
-    @Column(name = "HISTORY_QUANTITY_SOLD")
+    @Column(name = "QUANTITY_SOLD")
     private int soldQuantity;
 
-    @Column(name = "HISTORY_DATE")
+    @Column(name = "DATE")
     private LocalDateTime date;
 
-    @Column(name = "HISTORY_EXCHANGE_RATE")
+    @Column(name = "EXCHANGE_RATE")
     private Float exchangeRate;
 }

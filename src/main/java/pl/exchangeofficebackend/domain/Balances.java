@@ -11,16 +11,18 @@ public class Balances {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BALANCES_ID")
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "USERS_ID")  /* Obiekt */
-    private String userID;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
-    @Column(name = "BALANCES_CURRENCY") /* Obiekt */
-    private String balancesCurrency;
+    @ManyToOne
+    @JoinColumn(name = "CURRENCY_ID")
+    private Currency currency;
 
-    @Column(name = "BALANCES_QUANTITY")
+    @Column(name = "QUANTITY")
     private int quantity;
 
 }

@@ -2,6 +2,7 @@ package pl.exchangeofficebackend.domain;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity(name = "USER")
@@ -12,16 +13,23 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID")
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "USER_USERNAME")
+    @Column(name = "USERNAME")
     private String userName;
 
-    @Column(name = "USER_LOGIN")
+    @Column(name = "LOGIN")
     private String login;
 
-    @Column(name = "USER_PASSWORD")
+    @Column(name = "PASSWORD")
     private String password;
+
+    @OneToMany(
+            targetEntity = Balances.class,
+            mappedBy = "user",
+            fetch = FetchType.LAZY
+    )
+    private List<Balances> balances;
 
 }
