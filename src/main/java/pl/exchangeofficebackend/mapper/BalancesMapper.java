@@ -10,6 +10,7 @@ import pl.exchangeofficebackend.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BalancesMapper {
@@ -25,22 +26,40 @@ public class BalancesMapper {
         this.userService = userService;
     }
 
-//    public Balances mapToBalances(BalancesDto balancesDto) {
-//        return new Balances(
-//                balancesDto.getId(),
-//                balancesDto.getUserId(),
-//                balancesDto.getCurrencyId(),
-//                balancesDto.getQuantity());
-//    }
-//
-//    public List<BalancesDto> mapToListDto(List<Balances> balancesList) {
-//        List<BalancesDto> balancesDtos = new ArrayList<>();
-//
-//    }
-//
-//    public List<Balances> mapToList(List<BalancesDto> balancesDtos) {
-//        List<Balances> balancesList = new ArrayList<>();
-//
-//    }
+    public Balances mapToBalances(BalancesDto balancesDto) throws Exception {
+        return new Balances(
+                balancesDto.getId(),
+                userService.findUserById(balancesDto.getId()),
+                currencyService.findCurrencyById(balancesDto.getCurrencyId()),
+                balancesDto.getQuantity());
+    }
+
+    public BalancesDto mapToBalancesDto(Balances balances) {
+        return new BalancesDto(
+                balances.getId(),
+                balances.getUser().getId(),
+                balances.getCurrency().getId(),
+                balances.getQuantity());
+    }
+
+    public List<BalancesDto> mapToListDto(List<Balances> balancesList) {
+        return balancesList.stream()
+                .map(this::mapToBalancesDto)
+                .collect(Collectors.toList());
+
+    }
+
+    public List<Balances> mapToList(List<BalancesDto> balancesDtos) {
+        return balancesDtos.stream()
+                .map(balance -> {
+                    try {
+                        return mapToBalances(balance);
+                } catch (Exception e) {
+                        return null;
+                }
+        })
+                .collect(Collectors.toList());
+
+    }
 
 }
