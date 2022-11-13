@@ -19,10 +19,6 @@ public class BalancesService {
         this.balancesRepository = balancesRepository;
     }
 
-    public Balances saveBalance(Balances balances) {
-        return balancesRepository.save(balances);
-    }
-
     public List<Balances> findBalances() {
         return balancesRepository.findAll();
     }
@@ -30,4 +26,13 @@ public class BalancesService {
     public Balances findBalance(Long id) throws Exception {
         return balancesRepository.findById(id).orElseThrow(Exception::new);
     }
+
+    public Balances saveBalance(Balances balances) {
+        return balancesRepository.save(balances);
+    }
+
+    public void deleteBalance(Long id) {
+        balancesRepository.deleteById(id);
+    }
+
 }

@@ -3,6 +3,7 @@ package pl.exchangeofficebackend.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.exchangeofficebackend.domain.Balances;
 import pl.exchangeofficebackend.domain.Currency;
 import pl.exchangeofficebackend.repository.CurrencyRepository;
 
@@ -24,5 +25,12 @@ public class CurrencyService {
     }
     public Currency findCurrencyById(Long id) throws Exception {
         return currencyRepository.findById(id).orElseThrow(Exception::new);
+    }
+    public Currency saveCurrency(Currency currency) {
+        return currencyRepository.save(currency);
+    }
+
+    public void deleteCurrency(Long id) {
+        currencyRepository.deleteById(id);
     }
 }
