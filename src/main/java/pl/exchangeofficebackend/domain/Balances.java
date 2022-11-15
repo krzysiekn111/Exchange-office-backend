@@ -25,4 +25,8 @@ public class Balances {
     @Column(name = "QUANTITY")
     private int quantity;
 
+//    public Balances(Long id, int quantity) {
+//        this.id = id;
+//        this.quantity = quantity;
+//    }
 }

@@ -34,6 +34,13 @@ public class CurrencyMapper {
                 exchangeRatesService.findExchangeRateById(currencyDto.getId()).getLeftCurrency().getRightCurrency());
     }
 
+    public Currency mapToPlaneCurrency(CurrencyDto currencyDto) {
+        return new Currency(
+                currencyDto.getId(),
+                currencyDto.getSymbol(),
+                currencyDto.getName());
+    }
+
     public CurrencyDto mapToCurrencyDto(Currency currency) {
         return new CurrencyDto(
                 currency.getId(),

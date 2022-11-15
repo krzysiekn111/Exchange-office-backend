@@ -29,7 +29,7 @@ public class BalancesMapper {
     public Balances mapToBalances(BalancesDto balancesDto) throws Exception {
         return new Balances(
                 balancesDto.getId(),
-                userService.findUserById(balancesDto.getId()),
+                userService.findUserById(balancesDto.getUserId()),
                 currencyService.findCurrencyById(balancesDto.getCurrencyId()),
                 balancesDto.getQuantity());
     }
@@ -41,6 +41,12 @@ public class BalancesMapper {
                 balances.getCurrency().getId(),
                 balances.getQuantity());
     }
+
+//    public Balances mapToPlainBalances(BalancesDto balancesDto) {
+//        return new Balances(
+//                balancesDto.getId(),
+//                balancesDto.getQuantity());
+//    }
 
     public List<BalancesDto> mapToListDto(List<Balances> balancesList) {
         return balancesList.stream()

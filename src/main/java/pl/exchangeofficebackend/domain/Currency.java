@@ -56,4 +56,10 @@ public class Currency {
             fetch = FetchType.LAZY
     )
     private List<ExchangeRates> rightCurrency;
+
+    public Currency(Long id, String symbol, String name) {
+        this.id = id;
+        this.symbol = symbol;
+        this.name = name;
+    }
 }

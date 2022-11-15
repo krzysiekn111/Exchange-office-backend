@@ -3,7 +3,6 @@ package pl.exchangeofficebackend.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.exchangeofficebackend.domain.Currency;
 import pl.exchangeofficebackend.domain.ExchangeRates;
 import pl.exchangeofficebackend.repository.ExchangeRatesRepository;
 
@@ -28,7 +27,7 @@ public class ExchangeRatesService {
         return exchangeRatesRepository.findById(id).orElseThrow(Exception::new);
     }
 
-    public ExchangeRates saveCurrency(ExchangeRates exchangeRates) {
+    public ExchangeRates saveExchangeRate(ExchangeRates exchangeRates) {
         return exchangeRatesRepository.save(exchangeRates);
     }
 }

@@ -16,6 +16,13 @@ public class User {
     @Column(name = "ID")
     private Long id;
 
+    public User(Long id, String userName, String login, String password) {
+        this.id = id;
+        this.userName = userName;
+        this.login = login;
+        this.password = password;
+    }
+
     @Column(name = "USERNAME")
     private String userName;
 

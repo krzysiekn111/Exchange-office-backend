@@ -2,13 +2,12 @@ package pl.exchangeofficebackend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import pl.exchangeofficebackend.domain.Currency;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import pl.exchangeofficebackend.domain.ExchangeRates;
+import pl.exchangeofficebackend.domain.dto.ExchangeRatesDto;
+import pl.exchangeofficebackend.mapper.ExchangeRatesMapper;
 import pl.exchangeofficebackend.service.ExchangeRatesService;
 
 import java.util.List;
@@ -20,14 +19,22 @@ public class ExchangeRatesController {
 
     @Autowired
     private ExchangeRatesService exchangeRatesService;
+    @Autowired
+    private ExchangeRatesMapper exchangeRatesMapper;
 
     @GetMapping
     private List<ExchangeRates> showExchangeRates() {
         return exchangeRatesService.findExchangeRates();
     }
 
-    @GetMapping(value = "{currencyId}")
+    @GetMapping(value = "{rateId}")
     private ExchangeRates showExchangeRate(@PathVariable Long rateId) throws Exception {
         return exchangeRatesService.findExchangeRateById(rateId);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    private ResponseEntity<Void> saveExchangeRate(@RequestBody ExchangeRatesDto exchangeRatesDto) throws Exception {
+        exchangeRatesService.saveExchangeRate(exchangeRatesMapper.mapToExchangeRates(exchangeRatesDto));
+        return ResponseEntity.ok().build();
     }
 }

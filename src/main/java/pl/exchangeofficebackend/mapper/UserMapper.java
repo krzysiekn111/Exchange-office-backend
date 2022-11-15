@@ -33,6 +33,15 @@ public class UserMapper {
                 user.getPassword());
     }
 
+    public User mapToPlainUser(UserDto userDto) {
+        return new User(
+                userDto.getId(),
+                userDto.getUserName(),
+                userDto.getLogin(),
+                userDto.getPassword()
+        );
+    }
+
     public List<User> mapToUserList(List<UserDto> userDto) {
         return userDto.stream()
                 .map(a -> {

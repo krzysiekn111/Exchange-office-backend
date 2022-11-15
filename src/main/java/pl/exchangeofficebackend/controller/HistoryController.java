@@ -3,13 +3,16 @@ package pl.exchangeofficebackend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.exchangeofficebackend.domain.Currency;
 import pl.exchangeofficebackend.domain.History;
+import pl.exchangeofficebackend.domain.dto.ExchangeRatesDto;
+import pl.exchangeofficebackend.domain.dto.HistoryDto;
+import pl.exchangeofficebackend.mapper.BalancesMapper;
+import pl.exchangeofficebackend.mapper.HistoryMapper;
 import pl.exchangeofficebackend.service.HistoryService;
 
 import java.util.List;
@@ -21,6 +24,8 @@ public class HistoryController {
 
     @Autowired
     private HistoryService historyService;
+    @Autowired
+    private HistoryMapper historyMapper;
 
     @GetMapping
     private List<History> findAll() {
@@ -30,6 +35,12 @@ public class HistoryController {
     @GetMapping(value = "{historyId}")
     private History findHistory(@PathVariable Long historyId) throws Exception {
         return historyService.findHistoryById(historyId);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    private ResponseEntity<Void> saveHistory(@RequestBody HistoryDto historyDto) throws Exception {
+        historyService.saveHistory(historyMapper.mapToHistory(historyDto));
+        return ResponseEntity.ok().build();
     }
 
 }
