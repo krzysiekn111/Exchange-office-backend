@@ -43,4 +43,10 @@ public class CurrencyController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping(value = "{CurrencyId}")
+    public ResponseEntity<Void> deleteBalance(@PathVariable long CurrencyId) throws Exception {
+        currencyService.deleteCurrency(CurrencyId);
+        return ResponseEntity.ok().build();
+    }
+
 }

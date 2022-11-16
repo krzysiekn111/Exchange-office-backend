@@ -43,4 +43,10 @@ public class UserController {
         userService.saveUser(userMapper.mapToPlainUser(userDto));
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping(value = "{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable long userId) throws Exception {
+        userService.deleteUser(userId);
+        return ResponseEntity.ok().build();
+    }
 }

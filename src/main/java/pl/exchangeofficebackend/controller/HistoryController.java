@@ -44,4 +44,10 @@ public class HistoryController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping(value = "{historyId}")
+    public ResponseEntity<Void> deleteHistory(@PathVariable long historyId) throws Exception {
+        historyService.deleteHistory(historyId);
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -38,4 +38,6 @@ public class ExchangeRatesController {
         exchangeRatesService.saveExchangeRate(exchangeRatesMapper.mapToExchangeRates(exchangeRatesDto));
         return ResponseEntity.ok().build();
     }
+
+
 }

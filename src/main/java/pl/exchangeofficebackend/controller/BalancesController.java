@@ -38,4 +38,10 @@ public class BalancesController {
     balancesService.saveBalance(balancesMapper.mapToBalances(balanceDto));
     return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping(value = "{BalanceId}")
+    public ResponseEntity<Void> deleteBalance(@PathVariable long BalanceId) throws Exception {
+        balancesService.deleteBalance(BalanceId);
+        return ResponseEntity.ok().build();
+    }
 }
