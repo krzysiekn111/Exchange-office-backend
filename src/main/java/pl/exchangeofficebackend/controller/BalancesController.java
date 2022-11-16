@@ -23,8 +23,9 @@ public class BalancesController {
     private BalancesMapper balancesMapper;
 
     @GetMapping
-    private List<Balances> findBalances() {
-        return balancesService.findBalances();
+    private ResponseEntity<List<BalancesDto>> findBalances() {
+        List<Balances> balancesDtos = balancesService.findBalances();
+        return ResponseEntity.ok(balancesMapper.mapToListDto(balancesDtos));
     }
 
     @GetMapping(value = "{balanceId}")

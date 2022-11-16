@@ -27,8 +27,9 @@ public class CurrencyController {
     private CurrencyMapper currencyMapper;
 
     @GetMapping
-    private List<Currency> findCurrencies() {
-        return currencyService.findCurrencies();
+    private ResponseEntity<List<CurrencyDto>> findCurrencies() {
+        List<Currency> currencies = currencyService.findCurrencies();
+        return ResponseEntity.ok(currencyMapper.mapToCurrenciesDtoList(currencies));
     }
 
     @GetMapping(value = "{currencyId}")

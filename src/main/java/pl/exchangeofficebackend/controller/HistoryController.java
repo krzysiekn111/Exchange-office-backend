@@ -28,8 +28,9 @@ public class HistoryController {
     private HistoryMapper historyMapper;
 
     @GetMapping
-    private List<History> findAll() {
-        return historyService.findHistories();
+    private ResponseEntity<List<HistoryDto>> findAll() {
+        List<History> histories = historyService.findHistories();
+        return ResponseEntity.ok(historyMapper.mapToHistoryDtoList(histories));
     }
 
     @GetMapping(value = "{historyId}")

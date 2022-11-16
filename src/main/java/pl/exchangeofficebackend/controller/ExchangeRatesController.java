@@ -23,8 +23,9 @@ public class ExchangeRatesController {
     private ExchangeRatesMapper exchangeRatesMapper;
 
     @GetMapping
-    private List<ExchangeRates> showExchangeRates() {
-        return exchangeRatesService.findExchangeRates();
+    private ResponseEntity<List<ExchangeRatesDto>> showExchangeRates() {
+        List<ExchangeRates> exchangeRates = exchangeRatesService.findExchangeRates();
+        return ResponseEntity.ok(exchangeRatesMapper.mapToExchangeRatesDtoList(exchangeRates));
     }
 
     @GetMapping(value = "{rateId}")
