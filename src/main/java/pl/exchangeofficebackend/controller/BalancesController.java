@@ -6,9 +6,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.exchangeofficebackend.domain.Balances;
+import pl.exchangeofficebackend.domain.Currency;
 import pl.exchangeofficebackend.domain.dto.BalancesDto;
 import pl.exchangeofficebackend.mapper.BalancesMapper;
 import pl.exchangeofficebackend.service.BalancesService;
+import pl.exchangeofficebackend.service.CurrencyService;
+import pl.exchangeofficebackend.service.UserService;
 
 import java.util.List;
 
@@ -19,6 +22,10 @@ public class BalancesController {
 
     @Autowired
     private BalancesService balancesService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private CurrencyService currencyService;
     @Autowired
     private BalancesMapper balancesMapper;
 
@@ -43,5 +50,19 @@ public class BalancesController {
     public ResponseEntity<Void> deleteBalance(@PathVariable long BalanceId) throws Exception {
         balancesService.deleteBalance(BalanceId);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping(value = "balance/{balanceId}/user/{userId}")
+    public ResponseEntity<BalancesDto> assignUserToBalance(@PathVariable Long balanceId, @PathVariable Long userId) throws Exception {
+        Balances balances = balancesService.findBalance(balanceId);
+        balances.setUser(userService.findUserById(userId));
+        return ResponseEntity.ok(balancesMapper.mapToBalancesDto(balancesService.saveBalance(balances)));
+    }
+
+    @PutMapping(value = "balance/{balanceId}/currency/{currencyId}")
+    public ResponseEntity<BalancesDto> assignCurrencyToBalance(@PathVariable Long balanceId, @PathVariable Long currencyId) throws Exception {
+        Balances balances = balancesService.findBalance(balanceId);
+        balances.setCurrency(currencyService.findCurrencyById(currencyId));
+        return ResponseEntity.ok(balancesMapper.mapToBalancesDto(balancesService.saveBalance(balances)));
     }
 }
