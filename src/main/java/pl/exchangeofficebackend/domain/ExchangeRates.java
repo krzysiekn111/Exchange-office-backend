@@ -27,4 +27,10 @@ public class ExchangeRates {
 
     @Column(name = "EXCHANGE_RATE")
     private Float exchangeRate;
+
+    public ExchangeRates(Currency leftCurrency, Currency rightCurrency, Float exchangeRate) {
+        this.leftCurrency = leftCurrency;
+        this.rightCurrency = rightCurrency;
+        this.exchangeRate = exchangeRate;
+    }
 }

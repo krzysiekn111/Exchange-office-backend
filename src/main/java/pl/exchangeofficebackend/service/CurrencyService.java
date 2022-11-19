@@ -34,4 +34,5 @@ public class CurrencyService {
     public void deleteCurrency(Long id) {
         currencyRepository.deleteById(id);
     }
+
 }
