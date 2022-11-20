@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class ExchangeRatesDto {
 
     private Long id;
-    private Long leftCurrencyId;
-    private Long rightCurrencyId;
-    private Float exchangeRate;
+    private Long currencyId;
+    private Float exchangeRateToPLN;
 }

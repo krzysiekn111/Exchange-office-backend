@@ -22,17 +22,15 @@ public class ExchangeRatesMapper {
     public ExchangeRates mapToExchangeRates(ExchangeRatesDto exchangeRatesDto) throws Exception {
         return new ExchangeRates(
                 exchangeRatesDto.getId(),
-                currencyService.findCurrencyById(exchangeRatesDto.getLeftCurrencyId()),
-                currencyService.findCurrencyById(exchangeRatesDto.getRightCurrencyId()),
-                exchangeRatesDto.getExchangeRate());
+                currencyService.findCurrencyById(exchangeRatesDto.getCurrencyId()),
+                exchangeRatesDto.getExchangeRateToPLN());
     }
 
     public ExchangeRatesDto mapToExchangeRatesDto(ExchangeRates exchangeRates) {
         return new ExchangeRatesDto(
                 exchangeRates.getId(),
-                exchangeRates.getLeftCurrency().getId(),
-                exchangeRates.getRightCurrency().getId(),
-                exchangeRates.getExchangeRate()
+                exchangeRates.getCurrency().getId(),
+                exchangeRates.getExchangeRateToPLN()
         );
     }
 

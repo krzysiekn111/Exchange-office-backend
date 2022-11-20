@@ -30,8 +30,7 @@ public class CurrencyMapper {
                 balancesService.findBalance(currencyDto.getId()).getCurrency().getBalances(),
                 currencyService.findCurrencyById(currencyDto.getId()).getCurrencyBought(),
                 currencyService.findCurrencyById(currencyDto.getId()).getCurrencySold(),
-                exchangeRatesService.findExchangeRateById(currencyDto.getId()).getLeftCurrency().getLeftCurrency(),
-                exchangeRatesService.findExchangeRateById(currencyDto.getId()).getLeftCurrency().getRightCurrency());
+                exchangeRatesService.findExchangeRateById(currencyDto.getId()).getCurrency().getCurrency());
     }
 
     public Currency mapToPlaneCurrency(CurrencyDto currencyDto) {

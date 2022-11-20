@@ -42,21 +42,28 @@ public class ExchangeRatesService {
 
     @Scheduled(fixedRate = 5000)
     private void getCurrency() throws Exception {
+        getConnection("chf", 1L);
+        getConnection("usd", 2L);
+        getConnection("eur", 3L);
+        getConnection("gbp", 4L);
+
+    }
+
+    private void getConnection(String currencyURL, Long currencyID) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://api.nbp.pl/api/exchangerates/rates/a/chf/"))
+                .uri(URI.create("http://api.nbp.pl/api/exchangerates/rates/a/" + currencyURL+ "/"))
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject jsonObject = new JSONObject(response.body());
-        String jsonObject1 = jsonObject.toString();
+        String jsonObject1 = new JSONObject(response.body()).toString();
         String[] s = jsonObject1.split(",\"effectiveDate");
         String[] sc = s[0].split("\"mid\":");
         Float exchangeRate = Float.valueOf(sc[1]);
-        System.out.println(sc[1]);
+        System.out.println(exchangeRate);
         ExchangeRates exchangeRates = new ExchangeRates(
-                currencyService.findCurrencyById(4L),
-                currencyService.findCurrencyById(5L),
+                currencyID,
+                currencyService.findCurrencyById(currencyID),
                 exchangeRate);
         saveExchangeRate(exchangeRates);
     }

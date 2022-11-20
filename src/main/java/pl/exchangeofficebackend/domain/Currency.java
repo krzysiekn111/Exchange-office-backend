@@ -43,19 +43,13 @@ public class Currency {
     )
     private List<History> currencySold;
 
-    @OneToMany(
-            targetEntity = ExchangeRates.class,
-            mappedBy = "leftCurrency",
-            fetch = FetchType.LAZY
-    )
-    private List<ExchangeRates> leftCurrency;
 
     @OneToMany(
             targetEntity = ExchangeRates.class,
-            mappedBy = "rightCurrency",
+            mappedBy = "currency",
             fetch = FetchType.LAZY
     )
-    private List<ExchangeRates> rightCurrency;
+    private List<ExchangeRates> currency;
 
     public Currency(Long id, String symbol, String name) {
         this.id = id;

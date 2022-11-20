@@ -18,19 +18,14 @@ public class ExchangeRates {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "LEFT_CURRENCY_ID")
-    private Currency leftCurrency;
+    @JoinColumn(name = "CURRENCY_ID")
+    private Currency currency;
 
-    @ManyToOne
-    @JoinColumn(name = "RIGHT_CURRENCY_ID")
-    private Currency rightCurrency;
+    @Column(name = "EXCHANGE_RATE_TO_PLN")
+    private Float exchangeRateToPLN;
 
-    @Column(name = "EXCHANGE_RATE")
-    private Float exchangeRate;
-
-    public ExchangeRates(Currency leftCurrency, Currency rightCurrency, Float exchangeRate) {
-        this.leftCurrency = leftCurrency;
-        this.rightCurrency = rightCurrency;
-        this.exchangeRate = exchangeRate;
+    public ExchangeRates(Currency rightCurrency, Float exchangeRateToPLN) {
+        this.currency = currency;
+        this.exchangeRateToPLN = exchangeRateToPLN;
     }
 }
