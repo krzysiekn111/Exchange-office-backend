@@ -31,7 +31,8 @@ public class ExchangeRatesMapper {
         return new ExchangeRatesDto(
                 exchangeRates.getId(),
                 exchangeRates.getCurrency().getId(),
-                exchangeRates.getExchangeRateToPLN()
+                exchangeRates.getExchangeRateToPLN(),
+                exchangeRates.getCurrencyName()
         );
     }
 

@@ -12,4 +12,5 @@ public class ExchangeRatesDto {
     private Long id;
     private Long currencyId;
     private Float exchangeRateToPLN;
+    private String currencyName;
 }
