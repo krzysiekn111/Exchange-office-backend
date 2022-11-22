@@ -61,6 +61,9 @@ public class ExchangeRatesService {
         String[] sc = s[0].split("\"mid\":");
         Float exchangeRate = Float.valueOf(sc[1]);
         System.out.println(exchangeRate);
+
+
+
         ExchangeRates exchangeRates = new ExchangeRates(
                 currencyID,
                 currencyService.findCurrencyById(currencyID),

@@ -24,8 +24,13 @@ public class ExchangeRates {
     @Column(name = "EXCHANGE_RATE_TO_PLN")
     private Float exchangeRateToPLN;
 
-    public ExchangeRates(Currency rightCurrency, Float exchangeRateToPLN) {
+    @Column(name = "CURRENCY_NAME")
+    private String currencyName;
+
+    public ExchangeRates(Long id, Currency currency, Float exchangeRateToPLN) {
+        this.id = id;
         this.currency = currency;
         this.exchangeRateToPLN = exchangeRateToPLN;
+        this.currencyName = this.currency.getName();
     }
 }
