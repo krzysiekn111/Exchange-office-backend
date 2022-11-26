@@ -2,6 +2,8 @@ package pl.exchangeofficebackend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import pl.exchangeofficebackend.domain.Currency;
 import pl.exchangeofficebackend.repository.CurrencyRepository;
@@ -35,4 +37,11 @@ public class CurrencyService {
         currencyRepository.deleteById(id);
     }
 
+    @EventListener(ApplicationReadyEvent.class)
+    public void prepareData() {
+        saveCurrency(new Currency(1L,"chf","frank szwajcarski"));
+        saveCurrency(new Currency(2L,  "$", "dolar amerykański"));
+        saveCurrency(new Currency(3L, "€","euro" ));
+        saveCurrency(new Currency(4L, "£", "funt brytyjski"));
+    }
 }
