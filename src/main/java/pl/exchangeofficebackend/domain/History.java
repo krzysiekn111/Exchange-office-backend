@@ -4,6 +4,12 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+//@NamedNativeQuery(
+//        name = "History.callFillUpHistory",
+//        query = "call fillUpHistory()",
+//        resultClass = History.class
+//)
+
 @Entity(name = "HISTORY")
 @AllArgsConstructor
 @NoArgsConstructor

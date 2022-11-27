@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.exchangeofficebackend.domain.Balances;
 import pl.exchangeofficebackend.repository.BalancesRepository;
+import pl.exchangeofficebackend.repository.HistoryRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -13,10 +15,12 @@ import java.util.List;
 public class BalancesService {
 
     private BalancesRepository balancesRepository;
+    private HistoryRepository historyRepository;
 
     @Autowired
-    public BalancesService(BalancesRepository balancesRepository) {
+    public BalancesService(BalancesRepository balancesRepository, HistoryRepository historyRepository) {
         this.balancesRepository = balancesRepository;
+        this.historyRepository = historyRepository;
     }
 
     public List<Balances> findBalances() {
@@ -28,6 +32,7 @@ public class BalancesService {
     }
 
     public Balances saveBalance(Balances balances) {
+//        historyRepository.callFillUpHistory();
         return balancesRepository.save(balances);
     }
 
