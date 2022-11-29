@@ -33,8 +33,7 @@ public class CurrencyController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     private ResponseEntity<Currency> saveCurrency(@RequestBody CurrencyDto currencyDto) {
-        currencyControllerFacade.saveCurrency(currencyDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(currencyControllerFacade.saveCurrency(currencyDto));
     }
 
     @DeleteMapping(value = "{CurrencyId}")

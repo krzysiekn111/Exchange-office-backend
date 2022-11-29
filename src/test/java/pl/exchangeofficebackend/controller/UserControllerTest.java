@@ -15,13 +15,10 @@ import pl.exchangeofficebackend.domain.User;
 import pl.exchangeofficebackend.domain.dto.UserDto;
 import pl.exchangeofficebackend.facade.UserControllerFacade;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @WebMvcTest(UserController.class)
 @SpringJUnitWebConfig
@@ -86,4 +83,25 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.login", Matchers.is("login")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.password", Matchers.is("password")));
     }
+
+//    @Test
+//    void testDeleteUser() throws Exception {
+//        //Given
+//        Long id = 10L;
+//        UserDto userDto = new UserDto(10L, "username", "login", "password");
+//        when(userControllerFacade.findUser(id)).thenReturn(userDto);
+//        //When & Then
+//        mockMvc
+//                .perform(MockMvcRequestBuilders
+//                        .get("/v1/office/user/" + id)
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.userName", Matchers.is("username")))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.login", Matchers.is("login")))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.password", Matchers.is("password")));
+//
+//        mockMvc.perform(MockMvcRequestBuilders
+//                        .delete("/v1/tasks/" + id)
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().is(404));
+//    }
 }
