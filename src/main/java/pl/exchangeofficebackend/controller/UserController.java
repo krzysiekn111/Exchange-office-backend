@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.exchangeofficebackend.domain.User;
 import pl.exchangeofficebackend.domain.dto.UserDto;
+import pl.exchangeofficebackend.facade.UserControllerFacade;
 import pl.exchangeofficebackend.mapper.UserMapper;
 import pl.exchangeofficebackend.service.UserService;
 
@@ -18,14 +19,15 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+    private UserControllerFacade userControllerFacade;
+    @Autowired
     private UserService userService;
     @Autowired
     private UserMapper userMapper;
 
     @GetMapping
     private ResponseEntity<List<UserDto>> findAll() {
-        List<User> users = userService.findUsers();
-        return ResponseEntity.ok(userMapper.mapToUserDtoList(users));
+        return ResponseEntity.ok(userControllerFacade.findAll());
     }
 
     @GetMapping(value = "{userId}")
