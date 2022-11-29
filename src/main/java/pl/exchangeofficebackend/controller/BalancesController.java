@@ -47,20 +47,20 @@ public class BalancesController {
     }
 
     @DeleteMapping(value = "{BalanceId}")
-    public ResponseEntity<Void> deleteBalance(@PathVariable long BalanceId) throws Exception {
+    private ResponseEntity<Void> deleteBalance(@PathVariable long BalanceId) throws Exception {
         balancesService.deleteBalance(BalanceId);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "balance/{balanceId}/user/{userId}")
-    public ResponseEntity<BalancesDto> assignUserToBalance(@PathVariable Long balanceId, @PathVariable Long userId) throws Exception {
+    private ResponseEntity<BalancesDto> assignUserToBalance(@PathVariable Long balanceId, @PathVariable Long userId) throws Exception {
         Balances balances = balancesService.findBalance(balanceId);
         balances.setUser(userService.findUserById(userId));
         return ResponseEntity.ok(balancesMapper.mapToBalancesDto(balancesService.saveBalance(balances)));
     }
 
     @PutMapping(value = "balance/{balanceId}/currency/{currencyId}")
-    public ResponseEntity<BalancesDto> assignCurrencyToBalance(@PathVariable Long balanceId, @PathVariable Long currencyId) throws Exception {
+    private ResponseEntity<BalancesDto> assignCurrencyToBalance(@PathVariable Long balanceId, @PathVariable Long currencyId) throws Exception {
         Balances balances = balancesService.findBalance(balanceId);
         balances.setCurrency(currencyService.findCurrencyById(currencyId));
         return ResponseEntity.ok(balancesMapper.mapToBalancesDto(balancesService.saveBalance(balances)));

@@ -4,14 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pl.exchangeofficebackend.domain.Balances;
 import pl.exchangeofficebackend.domain.Currency;
-import pl.exchangeofficebackend.domain.dto.BalancesDto;
 import pl.exchangeofficebackend.domain.dto.CurrencyDto;
 import pl.exchangeofficebackend.mapper.CurrencyMapper;
-import pl.exchangeofficebackend.service.BalancesService;
 import pl.exchangeofficebackend.service.CurrencyService;
 
 import java.util.List;
@@ -44,7 +40,7 @@ public class CurrencyController {
     }
 
     @DeleteMapping(value = "{CurrencyId}")
-    public ResponseEntity<Void> deleteBalance(@PathVariable long CurrencyId) throws Exception {
+    private ResponseEntity<Void> deleteCurrency(@PathVariable long CurrencyId) throws Exception {
         currencyService.deleteCurrency(CurrencyId);
         return ResponseEntity.ok().build();
     }

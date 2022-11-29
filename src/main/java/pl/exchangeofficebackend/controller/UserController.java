@@ -4,15 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pl.exchangeofficebackend.domain.History;
 import pl.exchangeofficebackend.domain.User;
-import pl.exchangeofficebackend.domain.dto.HistoryDto;
 import pl.exchangeofficebackend.domain.dto.UserDto;
-import pl.exchangeofficebackend.mapper.BalancesMapper;
 import pl.exchangeofficebackend.mapper.UserMapper;
-import pl.exchangeofficebackend.service.BalancesService;
 import pl.exchangeofficebackend.service.UserService;
 
 import java.util.List;
@@ -34,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping(value = "{userId}")
-    private User findHistory(@PathVariable Long userId) throws Exception {
+    private User findUser(@PathVariable Long userId) throws Exception {
         return userService.findUserById(userId);
     }
 
@@ -45,7 +40,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable long userId) throws Exception {
+    private ResponseEntity<Void> deleteUser(@PathVariable long userId) throws Exception {
         userService.deleteUser(userId);
         return ResponseEntity.ok().build();
     }
