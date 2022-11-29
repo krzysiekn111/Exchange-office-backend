@@ -51,7 +51,7 @@ public class CurrencyMapper {
         return currencyDtos.stream()
                 .map(a -> {
                     try {
-                        return mapToCurrency(a);
+                        return mapToPlaneCurrency(a);
                     } catch (Exception e) {
                         return null;
                     }

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.exchangeofficebackend.domain.Currency;
 import pl.exchangeofficebackend.domain.dto.CurrencyDto;
+import pl.exchangeofficebackend.facade.CurrencyControllerFacade;
 import pl.exchangeofficebackend.mapper.CurrencyMapper;
 import pl.exchangeofficebackend.service.CurrencyService;
 
@@ -18,30 +19,27 @@ import java.util.List;
 public class CurrencyController {
 
     @Autowired
-    private CurrencyService currencyService;
-    @Autowired
-    private CurrencyMapper currencyMapper;
+    private CurrencyControllerFacade currencyControllerFacade;
 
     @GetMapping
     private ResponseEntity<List<CurrencyDto>> findCurrencies() {
-        List<Currency> currencies = currencyService.findCurrencies();
-        return ResponseEntity.ok(currencyMapper.mapToCurrenciesDtoList(currencies));
+        return ResponseEntity.ok(currencyControllerFacade.findCurrencies());
     }
 
     @GetMapping(value = "{currencyId}")
-    private Currency findCurrency(@PathVariable Long currencyId) throws Exception {
-        return currencyService.findCurrencyById(currencyId);
+    private CurrencyDto findCurrency(@PathVariable Long currencyId) throws Exception {
+        return currencyControllerFacade.findCurrency(currencyId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    private ResponseEntity<Void> saveCurrency(@RequestBody CurrencyDto currencyDto) throws Exception {
-        currencyService.saveCurrency(currencyMapper.mapToPlaneCurrency(currencyDto));
+    private ResponseEntity<Currency> saveCurrency(@RequestBody CurrencyDto currencyDto) {
+        currencyControllerFacade.saveCurrency(currencyDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "{CurrencyId}")
-    private ResponseEntity<Void> deleteCurrency(@PathVariable long CurrencyId) throws Exception {
-        currencyService.deleteCurrency(CurrencyId);
+    private ResponseEntity<Void> deleteCurrency(@PathVariable long CurrencyId) {
+        currencyControllerFacade.deleteCurrency(CurrencyId);
         return ResponseEntity.ok().build();
     }
 
