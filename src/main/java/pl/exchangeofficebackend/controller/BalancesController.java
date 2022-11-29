@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.exchangeofficebackend.domain.Balances;
 import pl.exchangeofficebackend.domain.Currency;
 import pl.exchangeofficebackend.domain.dto.BalancesDto;
+import pl.exchangeofficebackend.facade.BalancesControllerFacade;
 import pl.exchangeofficebackend.mapper.BalancesMapper;
 import pl.exchangeofficebackend.service.BalancesService;
 import pl.exchangeofficebackend.service.CurrencyService;
@@ -21,48 +22,36 @@ import java.util.List;
 public class BalancesController {
 
     @Autowired
-    private BalancesService balancesService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private CurrencyService currencyService;
-    @Autowired
-    private BalancesMapper balancesMapper;
+    BalancesControllerFacade balancesControllerFacade;
 
     @GetMapping
     private ResponseEntity<List<BalancesDto>> findBalances() {
-        List<Balances> balancesDtos = balancesService.findBalances();
-        return ResponseEntity.ok(balancesMapper.mapToListDto(balancesDtos));
+        return ResponseEntity.ok(balancesControllerFacade.findBalances());
     }
 
     @GetMapping(value = "{balanceId}")
-    private Balances findBalance(@PathVariable Long balanceId) throws Exception {
-        return balancesService.findBalance(balanceId);
+    private BalancesDto findBalance(@PathVariable Long balanceId) throws Exception {
+        return balancesControllerFacade.findBalance(balanceId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    private ResponseEntity<Void> saveBalance(@RequestBody BalancesDto balanceDto) throws Exception {
-    balancesService.saveBalance(balancesMapper.mapToBalances(balanceDto));
-    return ResponseEntity.ok().build();
+    private ResponseEntity<Balances> saveBalance(@RequestBody BalancesDto balanceDto) throws Exception {
+    return ResponseEntity.ok(balancesControllerFacade.saveBalance(balanceDto));
     }
 
     @DeleteMapping(value = "{BalanceId}")
-    private ResponseEntity<Void> deleteBalance(@PathVariable long BalanceId) throws Exception {
-        balancesService.deleteBalance(BalanceId);
+    private ResponseEntity<Void> deleteBalance(@PathVariable Long BalanceId) throws Exception {
+        balancesControllerFacade.deleteBalance(BalanceId);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "balance/{balanceId}/user/{userId}")
     private ResponseEntity<BalancesDto> assignUserToBalance(@PathVariable Long balanceId, @PathVariable Long userId) throws Exception {
-        Balances balances = balancesService.findBalance(balanceId);
-        balances.setUser(userService.findUserById(userId));
-        return ResponseEntity.ok(balancesMapper.mapToBalancesDto(balancesService.saveBalance(balances)));
+        return ResponseEntity.ok(balancesControllerFacade.assignUserToBalance(balanceId, userId));
     }
 
     @PutMapping(value = "balance/{balanceId}/currency/{currencyId}")
     private ResponseEntity<BalancesDto> assignCurrencyToBalance(@PathVariable Long balanceId, @PathVariable Long currencyId) throws Exception {
-        Balances balances = balancesService.findBalance(balanceId);
-        balances.setCurrency(currencyService.findCurrencyById(currencyId));
-        return ResponseEntity.ok(balancesMapper.mapToBalancesDto(balancesService.saveBalance(balances)));
+        return ResponseEntity.ok(balancesControllerFacade.assignCurrencyToBalance(balanceId, currencyId));
     }
 }

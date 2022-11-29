@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.exchangeofficebackend.domain.Currency;
 import pl.exchangeofficebackend.domain.dto.CurrencyDto;
 import pl.exchangeofficebackend.facade.CurrencyControllerFacade;
-import pl.exchangeofficebackend.mapper.CurrencyMapper;
-import pl.exchangeofficebackend.service.CurrencyService;
 
 import java.util.List;
 
