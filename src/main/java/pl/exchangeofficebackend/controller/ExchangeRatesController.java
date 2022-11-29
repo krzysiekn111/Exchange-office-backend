@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.exchangeofficebackend.domain.ExchangeRates;
 import pl.exchangeofficebackend.domain.dto.ExchangeRatesDto;
+import pl.exchangeofficebackend.facade.ExchangeRatesControllerFacade;
 import pl.exchangeofficebackend.mapper.ExchangeRatesMapper;
 import pl.exchangeofficebackend.service.ExchangeRatesService;
 
@@ -18,25 +19,21 @@ import java.util.List;
 public class ExchangeRatesController {
 
     @Autowired
-    private ExchangeRatesService exchangeRatesService;
-    @Autowired
-    private ExchangeRatesMapper exchangeRatesMapper;
+    ExchangeRatesControllerFacade exchangeRatesControllerFacade;
 
     @GetMapping
     private ResponseEntity<List<ExchangeRatesDto>> showExchangeRates() {
-        List<ExchangeRates> exchangeRates = exchangeRatesService.findExchangeRates();
-        return ResponseEntity.ok(exchangeRatesMapper.mapToExchangeRatesDtoList(exchangeRates));
+        return ResponseEntity.ok(exchangeRatesControllerFacade.showExchangeRates());
     }
 
     @GetMapping(value = "{rateId}")
-    private ExchangeRates showExchangeRate(@PathVariable Long rateId) throws Exception {
-        return exchangeRatesService.findExchangeRateById(rateId);
+    private ExchangeRatesDto showExchangeRate(@PathVariable Long rateId) throws Exception {
+        return exchangeRatesControllerFacade.showExchangeRate(rateId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    private ResponseEntity<Void> saveExchangeRate(@RequestBody ExchangeRatesDto exchangeRatesDto) throws Exception {
-        exchangeRatesService.saveExchangeRate(exchangeRatesMapper.mapToExchangeRates(exchangeRatesDto));
-        return ResponseEntity.ok().build();
+    private ResponseEntity<ExchangeRates> saveExchangeRate(@RequestBody ExchangeRatesDto exchangeRatesDto) throws Exception {
+        return ResponseEntity.ok(exchangeRatesControllerFacade.saveExchangeRate(exchangeRatesDto));
     }
 
 
