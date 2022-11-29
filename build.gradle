@@ -36,6 +36,8 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 
     implementation group: 'org.json', name: 'json', version: '20220924'
+
+    testImplementation 'com.google.code.gson:gson'
 }
 
 tasks.named('test') {

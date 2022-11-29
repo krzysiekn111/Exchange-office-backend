@@ -1,5 +1,6 @@
 package pl.exchangeofficebackend.controller;
 
+import com.google.gson.Gson;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import pl.exchangeofficebackend.facade.UserControllerFacade;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,12 +43,47 @@ class UserControllerTest {
                 .perform(MockMvcRequestBuilders
                         .get("/v1/office/user")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)));
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is("1")))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.is("Test Task")))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lists", Matchers.hasSize(1)))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lists[0].id", Matchers.is("1")))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lists[0].name", Matchers.is("Test list")))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lists[0].closed", Matchers.is(false)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].userName", Matchers.is("username")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].login", Matchers.is("login")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].password", Matchers.is("password")));
+    }
+
+    @Test
+    void testFindUser() throws Exception {
+        //given
+        Long id = 10L;
+        UserDto userDto = new UserDto(10L, "username", "login", "password");
+        when(userControllerFacade.findUser(id)).thenReturn(userDto);
+        // When & Then
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .get("/v1/office/user/" + id)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.userName", Matchers.is("username")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.login", Matchers.is("login")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password", Matchers.is("password")));
+    }
+
+    @Test
+    void testSaveUser() throws Exception {
+        //given
+        User savedUser = new User(10L, "username", "login", "password");
+        UserDto userDto = new UserDto(10L, "username", "login", "password");
+
+        when(userControllerFacade.saveUser(any(UserDto.class))).thenReturn(savedUser);
+
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(userDto);
+        //When & Then
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post("/v1/office/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+                        .content(jsonContent))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.userName", Matchers.is("username")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.login", Matchers.is("login")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password", Matchers.is("password")));
     }
 }

@@ -20,10 +20,6 @@ public class UserController {
 
     @Autowired
     private UserControllerFacade userControllerFacade;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private UserMapper userMapper;
 
     @GetMapping
     private ResponseEntity<List<UserDto>> findAll() {
@@ -31,19 +27,18 @@ public class UserController {
     }
 
     @GetMapping(value = "{userId}")
-    private User findUser(@PathVariable Long userId) throws Exception {
-        return userService.findUserById(userId);
+    private UserDto findUser(@PathVariable Long userId) throws Exception {
+        return userControllerFacade.findUser(userId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    private ResponseEntity<Void> saveUser(@RequestBody UserDto userDto) throws Exception {
-        userService.saveUser(userMapper.mapToPlainUser(userDto));
-        return ResponseEntity.ok().build();
+    private ResponseEntity<User> saveUser(@RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userControllerFacade.saveUser(userDto));
     }
 
     @DeleteMapping(value = "{userId}")
-    private ResponseEntity<Void> deleteUser(@PathVariable long userId) throws Exception {
-        userService.deleteUser(userId);
+    private ResponseEntity<Void> deleteUser(@PathVariable long userId){
+        userControllerFacade.deleteUser(userId);
         return ResponseEntity.ok().build();
     }
 }
