@@ -46,12 +46,12 @@ public class BalancesController {
     }
 
     @PutMapping(value = "balance/{balanceId}/user/{userId}")
-    private ResponseEntity<BalancesDto> assignUserToBalance(@PathVariable Long balanceId, @PathVariable Long userId) throws Exception {
+    private ResponseEntity<Balances> assignUserToBalance(@PathVariable Long balanceId, @PathVariable Long userId) throws Exception {
         return ResponseEntity.ok(balancesControllerFacade.assignUserToBalance(balanceId, userId));
     }
 
     @PutMapping(value = "balance/{balanceId}/currency/{currencyId}")
-    private ResponseEntity<BalancesDto> assignCurrencyToBalance(@PathVariable Long balanceId, @PathVariable Long currencyId) throws Exception {
+    private ResponseEntity<Balances> assignCurrencyToBalance(@PathVariable Long balanceId, @PathVariable Long currencyId) throws Exception {
         return ResponseEntity.ok(balancesControllerFacade.assignCurrencyToBalance(balanceId, currencyId));
     }
 }

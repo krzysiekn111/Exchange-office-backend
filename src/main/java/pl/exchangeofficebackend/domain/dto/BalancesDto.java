@@ -14,4 +14,8 @@ public class BalancesDto {
     private Long CurrencyId;
     private int quantity;
 
+    public BalancesDto(Long id, int quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
 }
