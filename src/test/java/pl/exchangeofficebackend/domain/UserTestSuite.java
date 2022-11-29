@@ -6,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import pl.exchangeofficebackend.domain.dto.UserDto;
 import pl.exchangeofficebackend.mapper.UserMapper;
 import pl.exchangeofficebackend.repository.UserRepository;
-import pl.exchangeofficebackend.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class UserTestSuite {
     }
 
     @Test
-    void testDToMapper() {
+    void testUserDToMapper() {
         //given
         User user1 = new User(101L, "username", "login", "password");
         //when

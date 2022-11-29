@@ -42,4 +42,13 @@ public class History {
 
     @Column(name = "EXCHANGE_RATE")
     private Float exchangeRate;
+
+    public History(Long id, Currency currencyBought, Currency currencySold, int boughtQuantity, int soldQuantity, Float exchangeRate) {
+        this.id = id;
+        this.currencyBought = currencyBought;
+        this.currencySold = currencySold;
+        this.boughtQuantity = boughtQuantity;
+        this.soldQuantity = soldQuantity;
+        this.exchangeRate = exchangeRate;
+    }
 }

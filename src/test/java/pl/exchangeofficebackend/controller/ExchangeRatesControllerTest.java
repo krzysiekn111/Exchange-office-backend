@@ -36,7 +36,7 @@ public class ExchangeRatesControllerTest {
     private CurrencyControllerFacade currencyControllerFacade;
 
     @Test
-    void testFindCurrencies() throws Exception {
+    void testFindExchangeRates() throws Exception {
         //given
         List<ExchangeRatesDto> exchangeRatesDtos = List.of(new ExchangeRatesDto(10L, 4L, 1.5F, "currencyName"));
         when(exchangeRatesControllerFacade.showExchangeRates()).thenReturn(exchangeRatesDtos);
@@ -51,7 +51,7 @@ public class ExchangeRatesControllerTest {
     }
 
     @Test
-    void testFindCurrency() throws Exception {
+    void testFindExchangeRate() throws Exception {
         //given
 
         Long id = 10L;
@@ -67,7 +67,7 @@ public class ExchangeRatesControllerTest {
     }
 
     @Test
-    void testSaveCurrency() throws Exception {
+    void testSaveExchangeRate() throws Exception {
         //given
         ExchangeRatesDto exchangeRatesDto = new ExchangeRatesDto(10L, 4L, 1.5F, "currencyName");
         ExchangeRates savedExchangeRates = new ExchangeRates(10L,

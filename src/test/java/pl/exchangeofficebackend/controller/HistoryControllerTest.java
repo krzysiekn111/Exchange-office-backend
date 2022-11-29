@@ -39,7 +39,7 @@ public class HistoryControllerTest {
     private CurrencyMapper currencyMapper;
 
     @Test
-    void testFindCurrencies() throws Exception {
+    void testFindHistories() throws Exception {
         //given
         LocalDateTime time = LocalDateTime.now();
         List<HistoryDto> historyDto = List.of(new HistoryDto(10L, 4L, 3L,
@@ -57,7 +57,7 @@ public class HistoryControllerTest {
     }
 
     @Test
-    void testFindCurrency() throws Exception {
+    void testFindHistory() throws Exception {
         //given
         LocalDateTime time = LocalDateTime.now();
         Long id = 10L;
@@ -75,7 +75,7 @@ public class HistoryControllerTest {
     }
 
 //    @Test
-//    void testSaveCurrency() throws Exception {
+//    void testSaveHistory() throws Exception {
 //        //given
 //        LocalDateTime time = LocalDateTime.now();
 //        History savedHistory = new History(10L, currencyMapper.mapToCurrency(currencyControllerFacade.findCurrency(4L)),

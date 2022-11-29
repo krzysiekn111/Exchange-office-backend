@@ -39,7 +39,7 @@ public class BalancesControllerTest {
     private CurrencyService currencyService;
 
     @Test
-    void testFindCurrencies() throws Exception {
+    void testFindBalances() throws Exception {
         //given
         List<BalancesDto> balancesDtos = List.of(new BalancesDto(1L, 5));
         when(balancesControllerFacade.findBalances()).thenReturn(balancesDtos);
@@ -53,7 +53,7 @@ public class BalancesControllerTest {
     }
 
     @Test
-    void testFindCurrency() throws Exception {
+    void testFindBalance() throws Exception {
         //given
         Long id = 5L;
         BalancesDto balancesDto = new BalancesDto(5L, 5);
@@ -67,7 +67,7 @@ public class BalancesControllerTest {
     }
 
     @Test
-    void testSaveCurrency() throws Exception {
+    void testSaveBalance() throws Exception {
         //given
         Balances savedBalances = new Balances(1L, 5);
         BalancesDto balancesDto = new BalancesDto(1L, 5);
