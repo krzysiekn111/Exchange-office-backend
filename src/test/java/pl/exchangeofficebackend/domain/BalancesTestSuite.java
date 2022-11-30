@@ -51,10 +51,10 @@ public class BalancesTestSuite {
         assertTrue(balancesRepository.existsById(savedBalance2.getId()));
         assertTrue(balancesRepository.existsById(savedBalance3.getId()));
         //cleanUp
-//        userRepository.deleteById(savedUser1.getId());
         balancesRepository.deleteById(savedBalance1.getId());
         balancesRepository.deleteById(savedBalance2.getId());
         balancesRepository.deleteById(savedBalance3.getId());
+        userRepository.deleteById(savedUser1.getId());
     }
 
     @Test
@@ -74,9 +74,9 @@ public class BalancesTestSuite {
         //then
         assertEquals(4L, balanceDto.getCurrencyId());
         assertEquals(10, balanceDto.getQuantity());
-//        assertEquals(101L, balanceDto.getUserId());
+        assertEquals(savedBalance1.getUser().getId(), balanceDto.getUserId());
         //cleanUp
-//        userRepository.deleteById(savedUser1.getId());
         balancesRepository.deleteById(savedBalance1.getId());
+        userRepository.deleteById(savedUser1.getId());
     }
 }

@@ -15,8 +15,6 @@ import java.util.stream.Collectors;
 public class ExchangeRatesMapper {
 
     @Autowired
-    private ExchangeRatesService exchangeRatesService;
-    @Autowired
     private CurrencyService currencyService;
 
     public ExchangeRates mapToExchangeRates(ExchangeRatesDto exchangeRatesDto) throws Exception {
@@ -24,7 +22,7 @@ public class ExchangeRatesMapper {
                 exchangeRatesDto.getId(),
                 currencyService.findCurrencyById(exchangeRatesDto.getCurrencyId()),
                 exchangeRatesDto.getExchangeRateToPLN(),
-                "");
+                exchangeRatesDto.getCurrencyName());
     }
 
     public ExchangeRatesDto mapToExchangeRatesDto(ExchangeRates exchangeRates) {

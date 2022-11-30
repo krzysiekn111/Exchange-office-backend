@@ -68,4 +68,27 @@ public class ExchangeRatesTestSuite {
         //cleanUp
         exchangeRatesRepository.deleteById(savedRate1.getId());
     }
+
+    @Test
+    void testExchangeRateMapper() throws Exception  {
+        //given
+        ExchangeRatesDto rateDto1 = new ExchangeRatesDto(101L,
+                4L, 3.0F, "funt brytyjski");
+        //when
+        List<ExchangeRatesDto> ratesDtos = new ArrayList<>();
+        ratesDtos.add(rateDto1);
+        List<ExchangeRates> rates = exchangeRatesMapper.mapToExchangeRatesList(ratesDtos);
+        ExchangeRates savedRate1 = exchangeRatesRepository.save(exchangeRatesMapper.mapToExchangeRates(rateDto1));
+
+        //then
+        assertEquals(4L, savedRate1.getCurrency().getId());
+        assertEquals(3.0F, savedRate1.getExchangeRateToPLN());
+        assertEquals("funt brytyjski", savedRate1.getCurrency().getName());
+
+        assertEquals(savedRate1.getCurrency().getId(), rates.get(0).getCurrency().getId());
+        assertEquals(3.0F, rates.get(0).getExchangeRateToPLN());
+        assertEquals("funt brytyjski", rates.get(0).getCurrencyName());
+        //cleanUp
+        exchangeRatesRepository.deleteById(savedRate1.getId());
+    }
 }
