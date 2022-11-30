@@ -35,8 +35,12 @@ public class BalancesController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    private ResponseEntity<Balances> saveBalance(@RequestBody BalancesDto balanceDto) throws Exception {
-    return ResponseEntity.ok(balancesControllerFacade.saveBalance(balanceDto));
+    private ResponseEntity<String> saveBalance(@RequestBody BalancesDto balanceDto) throws Exception {
+        Balances balances = balancesControllerFacade.saveBalance(balanceDto);
+        return ResponseEntity.ok(balances.getId().toString() + "\n" +
+                balances.getUser().getUserName() + "\n" +
+                balances.getCurrencyName() + "\n" +
+                balances.getQuantity());
     }
 
     @DeleteMapping(value = "{BalanceId}")
@@ -46,12 +50,20 @@ public class BalancesController {
     }
 
     @PutMapping(value = "balance/{balanceId}/user/{userId}")
-    private ResponseEntity<Balances> assignUserToBalance(@PathVariable Long balanceId, @PathVariable Long userId) throws Exception {
-        return ResponseEntity.ok(balancesControllerFacade.assignUserToBalance(balanceId, userId));
+    private ResponseEntity<String> assignUserToBalance(@PathVariable Long balanceId, @PathVariable Long userId) throws Exception {
+        Balances balances = balancesControllerFacade.assignUserToBalance(balanceId, userId);
+        return ResponseEntity.ok(balances.getId().toString() + "\n" +
+                balances.getUser().getUserName() + "\n" +
+                balances.getCurrencyName() + "\n" +
+                balances.getQuantity());
     }
 
     @PutMapping(value = "balance/{balanceId}/currency/{currencyId}")
-    private ResponseEntity<Balances> assignCurrencyToBalance(@PathVariable Long balanceId, @PathVariable Long currencyId) throws Exception {
-        return ResponseEntity.ok(balancesControllerFacade.assignCurrencyToBalance(balanceId, currencyId));
+    private ResponseEntity<String> assignCurrencyToBalance(@PathVariable Long balanceId, @PathVariable Long currencyId) throws Exception {
+        Balances balances = balancesControllerFacade.assignCurrencyToBalance(balanceId, currencyId);
+        return ResponseEntity.ok(balances.getId().toString() + "\n" +
+                balances.getUser().getUserName() + "\n" +
+                balances.getCurrencyName() + "\n" +
+                balances.getQuantity());
     }
 }

@@ -53,6 +53,7 @@ public class BalancesControllerFacade {
     public Balances assignCurrencyToBalance(Long balanceId,Long currencyId) throws Exception {
         Balances balances = balancesService.findBalance(balanceId);
         balances.setCurrency(currencyService.findCurrencyById(currencyId));
+        balances.setCurrencyName(currencyService.findCurrencyById(currencyId).getName());
         return balancesService.saveBalance(balances);
     }
 }
