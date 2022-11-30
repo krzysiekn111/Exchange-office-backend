@@ -1,10 +1,12 @@
 package pl.exchangeofficebackend.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity(name = "BALANCES")
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Balances {
@@ -25,8 +27,19 @@ public class Balances {
     @Column(name = "QUANTITY")
     private int quantity;
 
+    @Column(name = "CURRENCY_NAME")
+    private String currencyName;
+
     public Balances(Long id, int quantity) {
         this.id = id;
         this.quantity = quantity;
+    }
+
+    public Balances(Long id, User user, Currency currency, int quantity) {
+        this.id = id;
+        this.user = user;
+        this.currency = currency;
+        this.quantity = quantity;
+        this.currencyName = currency.getName();
     }
 }

@@ -25,6 +25,8 @@ public class BalancesMapper {
     public Balances mapToBalances(BalancesDto balancesDto) throws Exception {
         return new Balances(
                 balancesDto.getId(),
+                userService.findUserById(balancesDto.getUserId()),
+                currencyService.findCurrencyById(balancesDto.getCurrencyId()),
                 balancesDto.getQuantity());
     }
 
@@ -32,26 +34,13 @@ public class BalancesMapper {
         return new BalancesDto(
                 balances.getId(),
                 balances.getUser().getId(),
-                balances.getCurrency().getId(),
-                balances.getQuantity());
+                balances.getQuantity(),
+                balances.getCurrency().getId());
     }
 
     public List<BalancesDto> mapToListDto(List<Balances> balancesList) {
         return balancesList.stream()
                 .map(this::mapToBalancesDto)
-                .collect(Collectors.toList());
-
-    }
-
-    public List<Balances> mapToList(List<BalancesDto> balancesDtos) {
-        return balancesDtos.stream()
-                .map(balance -> {
-                    try {
-                        return mapToBalances(balance);
-                } catch (Exception e) {
-                        return null;
-                }
-        })
                 .collect(Collectors.toList());
 
     }
