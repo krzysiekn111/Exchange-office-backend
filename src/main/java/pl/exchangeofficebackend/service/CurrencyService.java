@@ -40,8 +40,8 @@ public class CurrencyService {
     @EventListener(ApplicationReadyEvent.class)
     public void prepareData() {
         saveCurrency(new Currency(1L,"chf","frank szwajcarski"));
-        saveCurrency(new Currency(2L,  "$", "dolar amerykański"));
-        saveCurrency(new Currency(3L, "€","euro" ));
-        saveCurrency(new Currency(4L, "£", "funt brytyjski"));
+        saveCurrency(new Currency(2L,  "usd", "dolar amerykański"));
+        saveCurrency(new Currency(3L, "eur","euro" ));
+        saveCurrency(new Currency(4L, "gbp", "funt brytyjski"));
     }
 }

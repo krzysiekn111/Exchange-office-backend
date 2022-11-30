@@ -14,9 +14,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.exchangeofficebackend.domain.Balances;
 import pl.exchangeofficebackend.domain.Currency;
+import pl.exchangeofficebackend.domain.User;
 import pl.exchangeofficebackend.domain.dto.BalancesDto;
 import pl.exchangeofficebackend.domain.dto.CurrencyDto;
 import pl.exchangeofficebackend.facade.BalancesControllerFacade;
+import pl.exchangeofficebackend.mapper.BalancesMapper;
 import pl.exchangeofficebackend.service.CurrencyService;
 import pl.exchangeofficebackend.service.UserService;
 
@@ -34,9 +36,9 @@ public class BalancesControllerTest {
     @MockBean
     private BalancesControllerFacade balancesControllerFacade;
     @MockBean
-    private UserService userService;
-    @MockBean
     private CurrencyService currencyService;
+    @MockBean
+    private BalancesMapper balancesMapper;
 
     @Test
     void testFindBalances() throws Exception {
@@ -69,8 +71,10 @@ public class BalancesControllerTest {
     @Test
     void testSaveBalance() throws Exception {
         //given
-        Balances savedBalances = new Balances(1L, 5);
-        BalancesDto balancesDto = new BalancesDto(1L, 5);
+        User savedUser = new User(33L, "username", "login", "password");
+        Balances savedBalances = new Balances(33L, savedUser,
+                currencyService.findCurrencyById(3L), 5);
+        BalancesDto balancesDto = new BalancesDto(1L, savedUser.getId(), 5, 3L);
 
         when(balancesControllerFacade.saveBalance(any(BalancesDto.class))).thenReturn(savedBalances);
 
@@ -83,6 +87,6 @@ public class BalancesControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
                         .content(jsonContent))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.quantity", Matchers.is(5)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.any(String.class)));
     }
 }

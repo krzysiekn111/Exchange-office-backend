@@ -40,6 +40,8 @@ public class Balances {
         this.user = user;
         this.currency = currency;
         this.quantity = quantity;
-        this.currencyName = currency.getName();
+        if (currency != null) {
+            this.currencyName = currency.getName();
+        } else this.currencyName = "currencyName";
     }
 }

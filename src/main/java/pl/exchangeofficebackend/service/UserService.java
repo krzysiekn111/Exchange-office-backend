@@ -2,7 +2,10 @@ package pl.exchangeofficebackend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import pl.exchangeofficebackend.domain.Currency;
 import pl.exchangeofficebackend.domain.History;
 import pl.exchangeofficebackend.domain.User;
 import pl.exchangeofficebackend.repository.UserRepository;
@@ -34,5 +37,10 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void prepareData() {
+        saveUser(new User(1L, "George Soros", "login", "password"));
     }
 }
